@@ -1,0 +1,51 @@
+{
+  "name": "ctm-form",
+  "version": "1.0.0",
+  "description": "Simple form for capturing user information. ",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rolf Chen <rolf@rolfchen.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-flow": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "chai-shallow-deep-equal": "^1.4.6",
+    "css-loader": "^3.5.0",
+    "cypress": "^4.3.0",
+    "cypress-cucumber-preprocessor": "^2.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^6.8.0",
+    "flow-bin": "^0.122.0",
+    "flow-typed": "^3.1.0",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.0.4",
+    "jest": "^25.2.7",
+    "nps-utils": "^1.7.0",
+    "sinon": "^9.0.1",
+    "sinon-chai": "^3.5.0",
+    "style-loader": "^1.1.3",
+    "terser-webpack-plugin": "^2.3.5",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "jss": "^10.1.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-jss": "^10.1.1",
+    "react-router-dom": "^5.1.2"
+  }
+}

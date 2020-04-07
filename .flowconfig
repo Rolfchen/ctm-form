@@ -1,0 +1,22 @@
+[ignore]
+./node_modules/module-deps/.*
+.*/node_modules/module-deps/.*
+./jest/.*
+
+[include]
+
+[libs]
+./flow-typed/
+./flow-typed/npm/
+
+[lints]
+sketchy-null=warn
+untyped-import=warn
+
+[options]
+module.file_ext=.js
+module.file_ext=.jsx
+module.name_mapper='^src' ->'<PROJECT_ROOT>/src'
+suppress_type=$DownCast
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
+esproposal.optional_chaining=enable
