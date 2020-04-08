@@ -9,7 +9,7 @@ import type { Theme } from "../../Configs/theme";
 import type { ValidationResultType } from "../../Helpers/Validation/Types/ValidationResultType";
 
 const useStyles: any = createUseStyles((theme: Theme) => ({
-  label: theme.typography.label,
+  label: theme?.typography?.label || {},
   container: {
     padding: "5px 10px 5px 0px",
   },
@@ -130,7 +130,7 @@ export const SmartInput = ({
         />
       )}
       <div
-        className={classnames(classes.helpText, {
+        className={classnames("HelpText", classes.helpText, {
           [classes.errorText]: displayError,
         })}
       >

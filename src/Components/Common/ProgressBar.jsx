@@ -21,12 +21,12 @@ const useStyles: any = createUseStyles((theme: Theme) => ({
   },
   step: {
     borderRadius: "30px",
-    border: `1px solid ${theme.palette.primaryColor}`,
+    border: `1px solid ${theme?.palette?.primaryColor || "black"}`,
     background: "transparent",
     width: "30px",
     height: "30px",
     marginRight: "6px",
-    color: theme.palette.primaryColor,
+    color: `${theme?.palette?.primaryColor || "black"}`,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -34,7 +34,7 @@ const useStyles: any = createUseStyles((theme: Theme) => ({
     fontSize: "1em",
   },
   activeStep: {
-    background: theme.palette.primaryColor,
+    background: `${theme?.palette?.primaryColor || "black"}`,
     color: "white",
   },
 }));

@@ -20,14 +20,13 @@ const useStyles: any = createUseStyles((theme: Theme) => ({
 export const App = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
-
   return (
     <BrowserRouter>
       <UserProvider>
         <div className={classnames("MainApp", classes.body)}>
           <h1>CTM Form</h1>
           <h2>Free Quotation!</h2>
-          <ProgressBar step={1} totalSteps={3} />
+          <ProgressBar />
           <Switch>
             <Route exact path="/">
               <UserDetails />
