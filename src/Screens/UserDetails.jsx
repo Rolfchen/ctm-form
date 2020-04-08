@@ -1,11 +1,14 @@
 // @flow
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import { useDebouncedCallback } from "use-debounce";
 import { Form, SmartInput, SmartButton } from "../Components/Common";
 import { UserContext } from "../Context/UserContext";
-import { setUserDetailAction } from "../Context/Actions";
+import {
+  setUserDetailAction,
+  setUserProgressStepAction,
+} from "../Context/Actions";
 
 type Props = {
   name?: string,
@@ -22,7 +25,13 @@ export const UserDetails = ({ name = "userDetails" }: Props) => {
   const {
     dispatch,
     validation: { details: fieldValidations },
+    data: { details },
   } = useContext(UserContext);
+
+  useEffect(() => {
+    dispatch(setUserProgressStepAction(1));
+  }, []);
+
   const handleChange = (event: any, name?: string) => {
     dispatch(setUserDetailAction(name || "", event.target.value));
   };
@@ -33,6 +42,7 @@ export const UserDetails = ({ name = "userDetails" }: Props) => {
       <SmartInput
         name="firstName"
         label="First Name"
+        value={details.firstName || ""}
         placeholder="Jasmine"
         onChange={handleChange}
         helpText="Enter your first name"
@@ -42,6 +52,7 @@ export const UserDetails = ({ name = "userDetails" }: Props) => {
       <SmartInput
         name="lastName"
         label="Last Name"
+        value={details.lastName || ""}
         placeholder="Teeh"
         helpText=""
         onChange={handleChange}
@@ -54,6 +65,7 @@ export const UserDetails = ({ name = "userDetails" }: Props) => {
         type="email"
         placeholder="j.teeh@halfice.com"
         onChange={handleChange}
+        value={details.email || ""}
         validation={fieldValidations.items["email"]}
         required
       />
@@ -61,6 +73,7 @@ export const UserDetails = ({ name = "userDetails" }: Props) => {
         name="phone"
         label="Phone (optional)"
         placeholder="e.g. 0455 666 777"
+        value={details.phone || ""}
         validation={fieldValidations.items["phone"]}
         helpText="If providing landline, please add the area code."
         onChange={handleChange}

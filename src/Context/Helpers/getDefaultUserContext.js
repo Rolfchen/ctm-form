@@ -5,6 +5,9 @@ import type { UserContextStateType } from "../Types/UserContextStateType";
 type GetDefaultUserContext = () => UserContextStateType;
 
 export const getDefaultUserContext: GetDefaultUserContext = () => ({
+  progress: {
+    step: 1,
+  },
   data: {
     details: {
       firstName: "",
@@ -15,7 +18,7 @@ export const getDefaultUserContext: GetDefaultUserContext = () => ({
     address: {
       streetNum: "",
       streetName: "",
-      streetType: "",
+      streetType: "St",
       suburb: "",
       postcode: "",
     },

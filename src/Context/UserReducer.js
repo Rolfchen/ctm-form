@@ -29,7 +29,13 @@ export const UserReducer = (state: UserContextStateType, action: any) => {
           [action.groupName]: action.validationGroup,
         },
       };
-
+    case "SET_USER_PROGRESS_STEP":
+      return {
+        ...state,
+        progress: {
+          step: action.step,
+        },
+      };
     default:
       return state;
   }

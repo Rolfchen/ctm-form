@@ -1,10 +1,13 @@
 // @flow
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Form, SmartInput, SmartButton } from "../Components/Common";
 import { createUseStyles } from "react-jss";
 import { UserContext } from "../Context/UserContext";
-import { setUserAddressAction } from "../Context/Actions";
+import {
+  setUserAddressAction,
+  setUserProgressStepAction,
+} from "../Context/Actions";
 
 import type { OptionType } from "../Components/Common/Types/OptionType";
 
@@ -53,8 +56,12 @@ export const UserAddress = ({ name }: Props) => {
   const classes = useStyles();
   const {
     dispatch,
-    validation: { address: fieldValidations },
+    validation: { address: fieldValidations, details },
+    data: { address },
   } = useContext(UserContext);
+  useEffect(() => {
+    dispatch(setUserProgressStepAction(2));
+  }, []);
   console.log("Address validation", fieldValidations);
   const handleChange = (event: any, name?: string) => {
     dispatch(setUserAddressAction(name || "", event.target.value));
@@ -73,15 +80,17 @@ export const UserAddress = ({ name }: Props) => {
             placeholder="1"
             onChange={handleChange}
             validation={fieldValidations.items["streetNum"]}
+            value={address.streetNum || ""}
             required
           />
           <SmartInput
             name="streetName"
             fieldWidth="fill"
             label="Street name"
-            placeholder="Test Dr."
+            placeholder="e.g. Seventy-Third"
             onChange={handleChange}
             validation={fieldValidations.items["streetName"]}
+            value={address.streetName || ""}
             required
           />
           <SmartInput
@@ -90,6 +99,7 @@ export const UserAddress = ({ name }: Props) => {
             label="Street type"
             options={streetTypes}
             onChange={handleChange}
+            value={address.streetType}
             required
           />
         </div>
@@ -102,6 +112,7 @@ export const UserAddress = ({ name }: Props) => {
             placeholder="Allpass"
             onChange={handleChange}
             validation={fieldValidations.items["suburb"]}
+            value={address.suburb || ""}
             required
           />
           <SmartInput
@@ -110,12 +121,18 @@ export const UserAddress = ({ name }: Props) => {
             placeholder="4000"
             onChange={handleChange}
             validation={fieldValidations.items["postcode"]}
+            value={address.postcode || ""}
             required
           />
         </div>
       </div>
       <SmartButton to={"/"}>Back</SmartButton>
-      <SmartButton disabled={!fieldValidations.isValid}>Submit</SmartButton>
+      <SmartButton
+        disabled={!fieldValidations.isValid && details.isValid}
+        to={"/result"}
+      >
+        Submit
+      </SmartButton>
     </Form>
   );
 };

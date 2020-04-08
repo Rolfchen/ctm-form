@@ -31,6 +31,7 @@ type Props = {
   label?: string,
   helpText?: string,
   validation?: ValidationResultType,
+  value?: string,
   className?: string,
   placeholder?: string,
   type?: "text" | "number" | "email" | "password" | "select",
@@ -47,6 +48,7 @@ export const SmartInput = ({
   placeholder = "",
   label = "",
   helpText = "",
+  value = "",
   validation = { isValid: true, message: "" },
   inputProps,
   required = false,
@@ -58,6 +60,7 @@ export const SmartInput = ({
   const classes = useStyles(theme);
   const inputEl = useRef(null);
 
+  const [inputValue, setInputValue] = useState(value);
   const [isPristine, setIsPristine] = useState(true);
   const [displayError, setDisplayError] = useState(false);
 
@@ -81,6 +84,7 @@ export const SmartInput = ({
     if (isPristine && event.target.value !== "") {
       setIsPristine(false);
     }
+    setInputValue(event.target.value);
     onChange(event, name);
   };
   useEffect(() => {
@@ -102,6 +106,8 @@ export const SmartInput = ({
       {label && <label className={classes.label}>{label}</label>}
       {type === "select" ? (
         <select
+          value={inputValue}
+          ref={inputEl}
           name={name}
           required={required}
           onChange={(e) => handleInputChange(e, name)}
@@ -113,6 +119,7 @@ export const SmartInput = ({
           {...inputProps}
           ref={inputEl}
           placeholder={placeholder}
+          value={inputValue}
           name={name}
           type={type}
           onChange={(e) => handleInputChange(e, name)}

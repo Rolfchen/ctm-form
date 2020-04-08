@@ -5,6 +5,10 @@ type ClassType = {
 };
 
 export type Theme = {
+  palette: {
+    primaryColor: string,
+    secondaryColor: string,
+  },
   typography: {
     primaryFont: string,
     body: ClassType,
@@ -13,6 +17,10 @@ export type Theme = {
 };
 
 export const theme: Theme = {
+  palette: {
+    primaryColor: "rgb(28,62,148)",
+    secondaryColor: "rgb(0,130,132)",
+  },
   typography: {
     primaryFont: "Source Sans Pro, RobotoHelvetica, Arial, Sans-serif",
     body: {

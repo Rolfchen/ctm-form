@@ -4,8 +4,9 @@ import React from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import classnames from "classnames";
 import { createUseStyles, useTheme } from "react-jss";
-import { UserAddress, UserDetails } from "./Screens";
+import { UserAddress, UserDetails, SubmissionResult } from "./Screens";
 import { UserProvider } from "./Context/UserProvider";
+import { ProgressBar } from "./Components/Common";
 
 import type { Theme } from "./Configs/theme";
 
@@ -26,12 +27,16 @@ export const App = () => {
         <div className={classnames("MainApp", classes.body)}>
           <h1>CTM Form</h1>
           <h2>Free Quotation!</h2>
+          <ProgressBar step={1} totalSteps={3} />
           <Switch>
             <Route exact path="/">
               <UserDetails />
             </Route>
             <Route exact path="/address">
               <UserAddress />
+            </Route>
+            <Route exact path="/result">
+              <SubmissionResult />
             </Route>
           </Switch>
         </div>

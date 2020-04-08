@@ -3,6 +3,9 @@
 import type { ValidationGroupType } from "../../Helpers/Validation/Types/ValidationGroupType";
 
 export type UserContextStateType = {
+  progress: {
+    step: number,
+  },
   data: {
     details: {
       firstName?: string,
