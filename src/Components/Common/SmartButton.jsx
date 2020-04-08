@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import classnames from "classnames";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 type Props = {
   name?: string,
@@ -10,6 +10,8 @@ type Props = {
   children?: React.Node,
   buttonProps?: any,
   to?: string,
+  disabled?: boolean,
+  onClick?: (e: any) => void,
 };
 
 export const SmartButton = ({
@@ -17,23 +19,31 @@ export const SmartButton = ({
   className,
   buttonProps,
   children,
+  disabled = false,
+  onClick = (e) => {},
   to,
 }: Props) => {
-  const innerButton = (children?: React.Node) => (
-    <button type="button" {...buttonProps}>
-      {children}
-    </button>
-  );
+  const history = useHistory();
+
+  const handleClick = (e) => {
+    onClick(e);
+    if (to) {
+      history.push(to);
+    }
+  };
 
   return (
     <div
       className={classnames(className, "SmartButton", "SmartButton__container")}
     >
-      {to ? (
-        <Link to={to}>{innerButton(children)}</Link>
-      ) : (
-        innerButton(children)
-      )}
+      <button
+        type="button"
+        {...buttonProps}
+        onClick={handleClick}
+        disabled={disabled}
+      >
+        {children}
+      </button>
     </div>
   );
 };

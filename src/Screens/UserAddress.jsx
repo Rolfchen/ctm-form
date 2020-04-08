@@ -1,8 +1,11 @@
 // @flow
 
-import React from "react";
+import React, { useContext } from "react";
 import { Form, SmartInput, SmartButton } from "../Components/Common";
 import { createUseStyles } from "react-jss";
+import { UserContext } from "../Context/UserContext";
+import { setUserAddressAction } from "../Context/Actions";
+
 import type { OptionType } from "../Components/Common/Types/OptionType";
 
 type Props = {
@@ -48,6 +51,15 @@ export const UserAddress = ({ name }: Props) => {
     },
   ];
   const classes = useStyles();
+  const {
+    dispatch,
+    validation: { address: fieldValidations },
+  } = useContext(UserContext);
+  console.log("Address validation", fieldValidations);
+  const handleChange = (event: any, name?: string) => {
+    dispatch(setUserAddressAction(name || "", event.target.value));
+  };
+
   return (
     <Form name={name}>
       <div className={classes.fieldGroup}>
@@ -59,6 +71,8 @@ export const UserAddress = ({ name }: Props) => {
             fieldWidth={50}
             label="Number"
             placeholder="1"
+            onChange={handleChange}
+            validation={fieldValidations.items["streetNum"]}
             required
           />
           <SmartInput
@@ -66,6 +80,8 @@ export const UserAddress = ({ name }: Props) => {
             fieldWidth="fill"
             label="Street name"
             placeholder="Test Dr."
+            onChange={handleChange}
+            validation={fieldValidations.items["streetName"]}
             required
           />
           <SmartInput
@@ -73,6 +89,7 @@ export const UserAddress = ({ name }: Props) => {
             name="streetType"
             label="Street type"
             options={streetTypes}
+            onChange={handleChange}
             required
           />
         </div>
@@ -83,17 +100,22 @@ export const UserAddress = ({ name }: Props) => {
             name="suburb"
             label="Suburb/City"
             placeholder="Allpass"
+            onChange={handleChange}
+            validation={fieldValidations.items["suburb"]}
             required
           />
           <SmartInput
             name="postcode"
             label="Postcode"
             placeholder="4000"
+            onChange={handleChange}
+            validation={fieldValidations.items["postcode"]}
             required
           />
         </div>
       </div>
       <SmartButton to={"/"}>Back</SmartButton>
+      <SmartButton disabled={!fieldValidations.isValid}>Submit</SmartButton>
     </Form>
   );
 };

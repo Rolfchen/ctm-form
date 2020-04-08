@@ -1,26 +1,42 @@
 // @flow
 
-import React, { useCallback } from "react";
+import * as React from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import classnames from "classnames";
 import { createUseStyles, useTheme } from "react-jss";
 import type { OptionType } from "./Types/OptionType";
 import type { Theme } from "../../Configs/theme";
+import type { ValidationResultType } from "../../Helpers/Validation/Types/ValidationResultType";
 
 const useStyles: any = createUseStyles((theme: Theme) => ({
   label: theme.typography.label,
   container: {
     padding: "5px 10px 5px 0px",
   },
+  errorInput: {
+    border: "1px solid red",
+  },
+  helpText: {
+    fontSize: "0.8em",
+    display: "block",
+    color: "#666",
+  },
+  errorText: {
+    color: "red",
+  },
 }));
 
 type Props = {
   name?: string,
   label?: string,
+  helpText?: string,
+  validation?: ValidationResultType,
   className?: string,
   placeholder?: string,
   type?: "text" | "number" | "email" | "password" | "select",
   required?: boolean,
   options?: OptionType[],
+  onChange?: (e: any, name?: string) => void,
   inputProps?: any,
 };
 
@@ -30,13 +46,21 @@ export const SmartInput = ({
   type = "text",
   placeholder = "",
   label = "",
+  helpText = "",
+  validation = { isValid: true, message: "" },
   inputProps,
   required = false,
   options = [],
+  onChange = (e, name) => {},
   ...props
 }: Props) => {
   const theme = useTheme();
   const classes = useStyles(theme);
+  const inputEl = useRef(null);
+
+  const [isPristine, setIsPristine] = useState(true);
+  const [displayError, setDisplayError] = useState(false);
+
   const renderOptions = useCallback(
     (options) => {
       return options
@@ -49,6 +73,23 @@ export const SmartInput = ({
     },
     [options]
   );
+
+  const { isValid, message: errorMessage } = validation;
+
+  const handleInputChange = (event: any, name: string) => {
+    event.persist();
+    if (isPristine && event.target.value !== "") {
+      setIsPristine(false);
+    }
+    onChange(event, name);
+  };
+  useEffect(() => {
+    if (!isPristine) {
+      const shouldShowError = !isValid && errorMessage;
+      setDisplayError(shouldShowError);
+    }
+  }, [validation]);
+
   return (
     <div
       className={classnames(
@@ -60,17 +101,34 @@ export const SmartInput = ({
     >
       {label && <label className={classes.label}>{label}</label>}
       {type === "select" ? (
-        <select name={name} required={required}>
+        <select
+          name={name}
+          required={required}
+          onChange={(e) => handleInputChange(e, name)}
+        >
           {renderOptions(options)}
         </select>
       ) : (
         <input
           {...inputProps}
+          ref={inputEl}
           placeholder={placeholder}
           name={name}
+          type={type}
+          onChange={(e) => handleInputChange(e, name)}
+          className={classnames({
+            [classes.errorInput]: displayError,
+          })}
           required={required}
         />
       )}
+      <div
+        className={classnames(classes.helpText, {
+          [classes.errorText]: displayError,
+        })}
+      >
+        {displayError ? errorMessage : helpText}
+      </div>
     </div>
   );
 };

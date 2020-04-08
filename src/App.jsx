@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import classnames from "classnames";
 import { createUseStyles, useTheme } from "react-jss";
 import { UserAddress, UserDetails } from "./Screens";
+import { UserProvider } from "./Context/UserProvider";
 
 import type { Theme } from "./Configs/theme";
 
@@ -21,17 +22,20 @@ export const App = () => {
 
   return (
     <BrowserRouter>
-      <div className={classnames("MainApp", classes.body)}>
-        <h1>CTM Form</h1>
-        <Switch>
-          <Route exact path="/">
-            <UserDetails />
-          </Route>
-          <Route exact path="/address">
-            <UserAddress />
-          </Route>
-        </Switch>
-      </div>
+      <UserProvider>
+        <div className={classnames("MainApp", classes.body)}>
+          <h1>CTM Form</h1>
+          <h2>Free Quotation!</h2>
+          <Switch>
+            <Route exact path="/">
+              <UserDetails />
+            </Route>
+            <Route exact path="/address">
+              <UserAddress />
+            </Route>
+          </Switch>
+        </div>
+      </UserProvider>
     </BrowserRouter>
   );
 };
