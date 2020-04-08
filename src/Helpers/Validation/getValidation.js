@@ -49,3 +49,5 @@ export const getValidation: GetValidation = (groupName, values) => {
     },
   };
 };
+
+export default getValidation;

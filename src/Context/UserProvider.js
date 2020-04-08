@@ -47,10 +47,7 @@ export const UserProvider = ({ children }: Props) => {
     debouncedUpdateAddressValidation(state.data.address);
   }, [state.data.address]);
 
-  // Testing only, check if validation group has been updated.
-  // useCompare(() => {
-  //   console.log("Validation Updated", state.validation);
-  // }, [state.validation]);
+  // @TODO could add persistance in localStorage or to API server for session storage
 
   return (
     <Provider
