@@ -67,7 +67,6 @@ export const UserAddress = ({ name }: Props) => {
   useEffect(() => {
     dispatch(setUserProgressStepAction(2));
   }, []);
-  console.log("Address validation", fieldValidations);
   const handleChange = (event: any, name?: string) => {
     dispatch(setUserAddressAction(name || "", event.target.value));
   };

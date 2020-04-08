@@ -22,7 +22,6 @@ describe("src/Components/Common", () => {
       </BrowserRouter>
     );
     const mockComponent = mockComponentWrapper.find(SmartButton);
-    console.log(mockComponent.debug());
     expect(mockComponent.prop("name")).to.equal(stubProps.name);
     expect(mockComponent.prop("className")).to.contain("test-Class");
     expect(mockComponent.prop("disabled")).to.equal(stubProps.disabled);

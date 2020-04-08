@@ -34,7 +34,6 @@ export const UserProvider = ({ children }: Props) => {
    * Performs debounced validation on the data.
    */
   useCompare(() => {
-    //console.log("State Details Changed", state.data);
     debouncedUpdateDetailsValidation(state.data.details);
   }, [state.data.details]);
 
@@ -43,7 +42,6 @@ export const UserProvider = ({ children }: Props) => {
    * Performs debounced validation on the data.
    */
   useCompare(() => {
-    //console.log("State Address Changed", state.data);
     debouncedUpdateAddressValidation(state.data.address);
   }, [state.data.address]);
 
