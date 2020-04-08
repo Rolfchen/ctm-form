@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
-    "test": "npx jest"
+    "test": "npx jest",
+    "build": "webpack --mode production",
+    "cypress": "npx cypress run",
+    "functest": "npx run-p -r start cypress"
   },
   "author": "Rolf Chen <rolf@rolfchen.com>",
   "license": "ISC",
@@ -31,6 +34,7 @@
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.0.4",
     "jest": "^25.2.7",
+    "npm-run-all": "^4.1.5",
     "nps-utils": "^1.7.0",
     "sinon": "^9.0.1",
     "sinon-chai": "^3.5.0",
