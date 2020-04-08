@@ -20,13 +20,18 @@ const useStyles: any = createUseStyles({
     display: "flex",
     flexBasis: "100%",
     flexDirection: "column",
+    width: "100%",
+    flexWrap: "wrap",
   },
   fieldGroupHeading: {
     marginBottom: "8px",
+    width: "100%",
   },
   fieldGroupBody: {
     flexDirection: "row",
     display: "flex",
+    width: "100%",
+    flexWrap: "wrap",
   },
 });
 
@@ -68,7 +73,7 @@ export const UserAddress = ({ name }: Props) => {
   };
 
   return (
-    <Form name={name}>
+    <Form name="frm-address">
       <div className={classes.fieldGroup}>
         <h4 className={classes.fieldGroupHeading}>Street Address</h4>
         <div className={classes.fieldGroupBody}>
@@ -126,10 +131,13 @@ export const UserAddress = ({ name }: Props) => {
           />
         </div>
       </div>
-      <SmartButton to={"/"}>Back</SmartButton>
+      <SmartButton to={"/"} className="Button--back">
+        Back
+      </SmartButton>
       <SmartButton
-        disabled={!fieldValidations.isValid && details.isValid}
+        disabled={!fieldValidations.isValid || !details.isValid}
         to={"/result"}
+        className="Button--submit"
       >
         Submit
       </SmartButton>

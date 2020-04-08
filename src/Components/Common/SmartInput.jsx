@@ -9,7 +9,9 @@ import type { Theme } from "../../Configs/theme";
 import type { ValidationResultType } from "../../Helpers/Validation/Types/ValidationResultType";
 
 const useStyles: any = createUseStyles((theme: Theme) => ({
-  label: theme?.typography?.label || {},
+  label: theme?.elements?.label || {},
+  input: theme?.elements?.input || {},
+  select: theme?.elements?.select || {},
   container: {
     padding: "5px 10px 5px 0px",
   },
@@ -100,7 +102,11 @@ export const SmartInput = ({
         classes.container,
         className,
         "SmartInput",
-        "SmartInput__container"
+        "SmartInput__container",
+        `SmartInput--${name}`,
+        {
+          error: displayError,
+        }
       )}
     >
       {label && <label className={classes.label}>{label}</label>}
@@ -111,6 +117,9 @@ export const SmartInput = ({
           name={name}
           required={required}
           onChange={(e) => handleInputChange(e, name)}
+          className={classnames(classes.select, {
+            [classes.errorInput]: displayError,
+          })}
         >
           {renderOptions(options)}
         </select>
@@ -123,7 +132,7 @@ export const SmartInput = ({
           name={name}
           type={type}
           onChange={(e) => handleInputChange(e, name)}
-          className={classnames({
+          className={classnames(classes.input, {
             [classes.errorInput]: displayError,
           })}
           required={required}

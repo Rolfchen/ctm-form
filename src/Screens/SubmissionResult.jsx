@@ -1,6 +1,7 @@
 // @flow
 
 import React, { useContext, useEffect } from "react";
+import classnames from "classnames";
 import { createUseStyles, useTheme } from "react-jss";
 import { UserContext } from "../Context/UserContext";
 import { useHistory } from "react-router-dom";
@@ -30,12 +31,9 @@ export const SubmissionResult = ({ name = "Submission Results" }: Props) => {
   useEffect(() => {
     dispatch(setUserProgressStepAction(3));
   }, []);
-  // if (validation.details.isValid && validation.address.isValid) {
-  //   console.log("Invalid data!");
-  //   history.push("/");
-  // }
+
   return (
-    <div className={classes.mainForm}>
+    <div className={classnames("Submission--Success", classes.mainForm)}>
       <h2>Success!</h2>
       <div>
         Thank you for your submission. Please see your submitted results below.
@@ -43,25 +41,31 @@ export const SubmissionResult = ({ name = "Submission Results" }: Props) => {
       <div>
         <h3>Details</h3>
         <ul>
-          <li>
+          <li className="Submission--Name">
             <strong>Name: </strong>
-            {`${details.firstName || ""} ${details.lastName || ""}`}
+            <span className="Submission__text">
+              {`${details.firstName || ""} ${details.lastName || ""}`}
+            </span>
           </li>
-          <li>
+          <li className="Submission--Email">
             <strong>Email: </strong>
-            {`${details.email || ""}`}
+            <span className="Submission__text">{`${details.email || ""}`}</span>
           </li>
           {details.phone && (
-            <li>
+            <li className="Submission--Phone">
               <strong>Phone: </strong>
-              {`${details.phone || ""}`}
+              <span className="Submission__text">
+                {`${details.phone || ""}`}
+              </span>
             </li>
           )}
-          <li>
+          <li className="Submission--Address">
             <strong>Address: </strong>
-            {`${address.streetNum || ""} ${address.streetName || ""} ${
-              address.streetType
-            } ${address.suburb} ${address.postcode}`}
+            <span className="Submission__text">
+              {`${address.streetNum || ""} ${address.streetName || ""} ${
+                address.streetType
+              } ${address.suburb} ${address.postcode}`}
+            </span>
           </li>
         </ul>
       </div>

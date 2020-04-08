@@ -56,5 +56,8 @@
     "setupFilesAfterEnv": [
       "./setupTests.js"
     ]
+  },
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/step_definitions"
   }
 }

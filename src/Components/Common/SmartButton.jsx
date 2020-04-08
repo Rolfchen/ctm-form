@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import classnames from "classnames";
+import { createUseStyles, useTheme } from "react-jss";
 import { useHistory } from "react-router-dom";
+import type { Theme } from "../../Configs/theme";
 
 type Props = {
   name?: string,
@@ -14,6 +16,11 @@ type Props = {
   onClick?: (e: any) => void,
 };
 
+const useStyles: any = createUseStyles((theme: Theme) => ({
+  button: theme?.elements?.button || {},
+  buttonDisabled: theme?.elements?.buttonDisabled || {},
+}));
+
 export const SmartButton = ({
   name = "",
   className,
@@ -24,7 +31,8 @@ export const SmartButton = ({
   to,
 }: Props) => {
   const history = useHistory();
-
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const handleClick = (e) => {
     onClick(e);
     if (to) {
@@ -41,6 +49,14 @@ export const SmartButton = ({
         {...buttonProps}
         onClick={handleClick}
         disabled={disabled}
+        className={classnames(
+          {
+            [classes.button]: !disabled,
+          },
+          {
+            [classes.buttonDisabled]: disabled,
+          }
+        )}
       >
         {children}
       </button>

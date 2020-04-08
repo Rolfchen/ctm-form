@@ -46,14 +46,26 @@ export const ProgressBar = ({ totalSteps = 3 }: Props) => {
     progress: { step },
   } = useContext(UserContext);
 
-  console.log(step);
   const renderSteps = () =>
     Array.from(Array(totalSteps), (item, idx) => (
-      <li key={idx} className={classes.stepsList}>
+      <li
+        key={idx}
+        className={classnames(
+          "ProgressBar__List",
+          `ProgressBar__List--Step${idx + 1}`,
+          classes.stepsList
+        )}
+      >
         <div
-          className={classnames(classes.step, {
-            [classes.activeStep]: idx === step - 1,
-          })}
+          className={classnames(
+            {
+              active: idx === step - 1,
+            },
+            classes.step,
+            {
+              [classes.activeStep]: idx === step - 1,
+            }
+          )}
         >
           {idx + 1}
         </div>
@@ -61,7 +73,9 @@ export const ProgressBar = ({ totalSteps = 3 }: Props) => {
     ));
   return (
     <div>
-      <ul className={classes.stepsContainer}>{renderSteps()}</ul>
+      <ul className={classnames("ProgressBar", classes.stepsContainer)}>
+        {renderSteps()}
+      </ul>
     </div>
   );
 };

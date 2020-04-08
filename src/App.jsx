@@ -12,7 +12,7 @@ import type { Theme } from "./Configs/theme";
 
 const useStyles: any = createUseStyles((theme: Theme) => ({
   body: {
-    ...theme.typography.body,
+    ...theme.elements.body,
     fontFamily: theme.typography.primaryFont,
   },
 }));

@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost:9002",
+  "video": false,
+  "chromeWebSecurity": false,
+  "ignoreTestFiles": [
+    "*.js",
+    "*.md"
+  ]
+}

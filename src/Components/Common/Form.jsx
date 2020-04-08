@@ -12,16 +12,21 @@ const useStyles: any = createUseStyles((theme: Theme) => ({
   },
 }));
 type Props = {
+  name: string,
   children?: React.Node,
   className?: string,
 };
 
-export const Form = ({ children, className, ...props }: Props) => {
+export const Form = ({ name, children, className, ...props }: Props) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
-    <form {...props} className={classnames(className, classes.container)}>
+    <form
+      {...props}
+      name={name}
+      className={classnames(className, classes.container)}
+    >
       {children}
     </form>
   );
