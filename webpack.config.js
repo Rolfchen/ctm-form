@@ -7,11 +7,13 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = () => {
   return {
     entry: {
-      index: "./src/index.js",
+      ctmForm: "./src/index.js",
     },
     output: {
       path: path.resolve(__dirname, "dist"),
       publicPath: "/",
+      filename: "[name].bundle.js",
+      library: "ctmForm",
     },
     devServer: {
       port: 9002,
